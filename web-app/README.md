@@ -45,28 +45,31 @@ go build
 ```
 
 ## Test
-### Search
+### Search all
 ```shell
 curl http://localhost:8080/movies
-ID: 1, Name: Movie 1, Release Date: 2022-01-01
-ID: 2, Name: Movie 2, Release Date: 2022-02-15
-ID: 3, Name: Movie 3, Release Date: 2022-03-10
+[{"id":1,"name":"Updated Movie","release_date":"2022-05-01"},{"id":3,"name":"Movie 3","release_date":"2022-03-10"}]
+```
+
+### Search a movie with id
+```shell
+curl http://localhost:8080/movies/1
+{"id":1,"name":"Updated Movie","release_date":"2022-05-01"}
 ```
 
 ### Insert
 ```shell
-curl -X POST -d "name=Movie 4&release_date=2022-04-20" http://localhost:8080/movies
-电影创建成功！%
+curl -X POST -H "Content-Type: application/json" -d '{"name":"Movie 4", "release_date":"2022-04-20"}' http://localhost:8080/movies
+{"id":4,"name":"Movie 4","release_date":"2022-04-20"}
 ```
 
 ### Delete
 ```shell
-curl -X DELETE "http://localhost:8080/movies?id=2"
-电影删除成功！%
+curl -X DELETE http://localhost:8080/movies/4
 ```
 
 ### Update
 ```shell
-curl -X PUT -d "id=1&name=Updated Movie&release_date=2022-05-01" http://localhost:8080/movies
-电影更新成功！%
+curl -X PUT -H "Content-Type: application/json" -d '{"name":"Updated Movie", "release_date":"2022-05-01"}' http://localhost:8080/movies/1
+{"id":1,"name":"Updated Movie","release_date":"2022-05-01"}
 ```
